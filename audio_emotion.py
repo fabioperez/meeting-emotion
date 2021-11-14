@@ -75,7 +75,14 @@ if __name__ == "__main__":
         if audio_file.name.endswith(".wav"):
             audio = AudioSegment.from_file(s, "wav")
         elif audio_file.name.endswith(".mp3"):
-            audio = AudioSegment.from_file(s, "mp4")
+            try:
+                audio = AudioSegment.from_file(s, "mp3")
+            except:
+                try:
+                    audio = AudioSegment.from_file(s, "mp4")
+                except:
+                    audio = None
+                    print("audio = none")
         st.audio(audio.export().read())
 
         snippet_length = st.number_input(
